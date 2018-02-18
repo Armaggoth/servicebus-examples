@@ -10,13 +10,17 @@ namespace ServiceBusTopic
 {
     class Program
     {
-        private static string _conn = "Endpoint=sb://<namespace>.servicebus.windows.net/;SharedAccessKeyName=<policy name>;SharedAccessKey=<key>";
-        private static string _topic = "<topic name>";
+        //Connection string
+        private static string _conn = "Endpoint=sb://cdelgado.servicebus.windows.net/;SharedAccessKeyName=MyPolicy;SharedAccessKey=NBa3KO2gb4mJ+bH4834ZUfEi55CGzirVgmIy168VgPA=";
+        private static string _topic = "mytopic";
         
         static void Main(string[] args)
         {
+            //SendMessage(" Hello World!");
+            ReadMessage();
+            Console.ReadLine();
         }
-
+        
         static void SendMessage(string message)
         {
             var topicClient = TopicClient.CreateFromConnectionString(_conn, _topic);
@@ -26,7 +30,7 @@ namespace ServiceBusTopic
 
         static void ReadMessage()
         {
-            var subClient = SubscriptionClient.CreateFromConnectionString(_conn, _topic, "<subscription name>");
+            var subClient = SubscriptionClient.CreateFromConnectionString(_conn, _topic, "ConsoleApp");
             subClient.OnMessage(m =>
             {
                 Console.WriteLine(m.GetBody<string>());
